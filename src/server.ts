@@ -1,7 +1,7 @@
 import express from 'express';
-import './database';
 import routes from './routes';
 
+import './database';
 
 const app = express();
 
@@ -10,5 +10,5 @@ app.use(routes);
 
 app.listen(3333, () => {
   // eslint-disable-next-line no-console
-  console.log('Servidor ativo na porta: 3333');
+  console.log('==> Servidor ativo na porta: 3333');
 });
