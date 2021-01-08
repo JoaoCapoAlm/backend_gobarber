@@ -28,6 +28,6 @@ export default class CreateAppointements1610029379273 implements MigrationInterf
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('appointments')
+      await queryRunner.dropTable('appointments');
   }
 }

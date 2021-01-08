@@ -33,5 +33,4 @@ class AppointmentsRepository {
   }
 }
 
-
 export default AppointmentsRepository;
