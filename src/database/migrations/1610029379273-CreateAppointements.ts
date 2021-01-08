@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class CreateAppointements1610029379273 implements MigrationInterface {
+export default class CreateAppointments1610029379273 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
           new Table({
@@ -10,7 +10,8 @@ export default class CreateAppointements1610029379273 implements MigrationInterf
                       name: 'id',
                       type: 'varchar',
                       isPrimary: true,
-                      generationStrategy: 'uuid'
+                      generationStrategy: 'uuid',
+                      default: 'uuid_generate_v4()'
                   },
                   {
                       name: 'provider',
