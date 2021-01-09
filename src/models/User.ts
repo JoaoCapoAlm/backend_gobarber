@@ -6,16 +6,19 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-@Entity('appointments')
-class Appoitment {
+@Entity('users')
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider: string;
+  name: string;
 
-  @Column('time with time zone')
-  date: Date;
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   create_at: Date;
@@ -24,4 +27,4 @@ class Appoitment {
   updated_at: Date;
 }
 
-export default Appoitment;
+export default User;
