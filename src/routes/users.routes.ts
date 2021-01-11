@@ -15,7 +15,7 @@ usersRouter.post('/', async (request, response) => {
       password
     });
 
-    const yserWithoutPassword = {
+    const userWithoutPassword = {
       id: user.id,
       name: user.name,
       email: user.email,
@@ -23,7 +23,7 @@ usersRouter.post('/', async (request, response) => {
       updated_at: user.updated_at,
     }
 
-    return response.json(yserWithoutPassword);
+    return response.json(userWithoutPassword);
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
