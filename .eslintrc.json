@@ -20,9 +20,13 @@
         "prettier"
     ],
     "rules": {
+      "no-underscore-dangle": "off",
       "prettier/prettier": "error",
       "class-methods-use-this": "off",
-      "camelcase":"off",
+      "camelcase": "off",
+      "no-unused-vars": ["error", {
+        "argsIgnorePattern": "_"
+      }],
       "import/extensions": [
         "error",
         "ignorePackages",

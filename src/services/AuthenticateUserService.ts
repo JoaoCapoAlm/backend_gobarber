@@ -17,6 +17,10 @@ interface Response {
 
 class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
+    if (email === undefined || password === undefined){
+      throw new AppError('Email and password is required!');
+    }
+
     const userRepository = getRepository(User);
 
     const user = await userRepository.findOne({where: { email }});

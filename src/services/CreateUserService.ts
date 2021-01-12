@@ -11,6 +11,12 @@ interface Request {
 
 class CreateUserService {
   async execute({ name, email, password }: Request): Promise<User>{
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    if (name === undefined || email === undefined || password === undefined){
+      throw new AppError('Name, email and password is required!');
+    }
     const userRepository = getRepository(User);
 
     const checkUserExists = await userRepository.findOne({
