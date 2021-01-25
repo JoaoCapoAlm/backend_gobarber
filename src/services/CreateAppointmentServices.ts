@@ -12,8 +12,7 @@ interface Request {
 
 class CreateAppointmentService {
   public async execute({ date, provider_id }: Request): Promise<Appointment> {
-    console.error(date);
-    if ( date === undefined || provider_id === undefined){
+    if (date === undefined || provider_id === undefined) {
       throw new AppError('date and provider_id is required!');
     }
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
@@ -24,18 +23,20 @@ class CreateAppointmentService {
       where: { id: provider_id },
     });
 
-    if (!checkUserExists){
+    if (!checkUserExists) {
       throw new AppError('User not found!');
     }
 
-    const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+      appointmentDate,
+    );
     if (findAppointmentInSameDate) {
       throw new AppError('This appointment is already booked');
     }
 
     const appointment = appointmentsRepository.create({
       provider_id,
-      date: appointmentDate
+      date: appointmentDate,
     });
 
     await appointmentsRepository.save(appointment);

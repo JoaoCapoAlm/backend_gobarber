@@ -10,11 +10,8 @@ interface Request {
 }
 
 class CreateUserService {
-  async execute({ name, email, password }: Request): Promise<User>{
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    if (name === undefined || email === undefined || password === undefined){
+  async execute({ name, email, password }: Request): Promise<User> {
+    if (name === undefined || email === undefined || password === undefined) {
       throw new AppError('Name, email and password is required!');
     }
     const userRepository = getRepository(User);
@@ -23,7 +20,7 @@ class CreateUserService {
       where: { email },
     });
 
-    if (checkUserExists){
+    if (checkUserExists) {
       throw new AppError('Email address already used!');
     }
 
@@ -37,7 +34,7 @@ class CreateUserService {
 
     await userRepository.save(user);
 
-    return user
+    return user;
   }
 }
 

@@ -11,21 +11,21 @@ interface Request {
 }
 
 interface Response {
-  user: User,
-  token: string,
+  user: User;
+  token: string;
 }
 
 class AuthenticateUserService {
   public async execute({ email, password }: Request): Promise<Response> {
-    if (email === undefined || password === undefined){
+    if (email === undefined || password === undefined) {
       throw new AppError('Email and password is required!');
     }
 
     const userRepository = getRepository(User);
 
-    const user = await userRepository.findOne({where: { email }});
+    const user = await userRepository.findOne({ where: { email } });
 
-    if (!user){
+    if (!user) {
       throw new AppError('Incorrect email/password combination!', 401);
     }
 

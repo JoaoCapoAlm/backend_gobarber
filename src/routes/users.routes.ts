@@ -15,7 +15,7 @@ usersRouter.post('/', async (request, response) => {
   const user = await createUser.execute({
     name,
     email,
-    password
+    password,
   });
 
   const userWithoutPassword = {
@@ -24,7 +24,7 @@ usersRouter.post('/', async (request, response) => {
     email: user.email,
     create_at: user.create_at,
     updated_at: user.updated_at,
-  }
+  };
 
   return response.json(userWithoutPassword);
 });
@@ -38,7 +38,7 @@ usersRouter.patch(
 
     const user = await updateUserAvatar.execute({
       user_id: request.user.id,
-      avatarFileName: request.file.filename
+      avatarFileName: request.file.filename,
     });
 
     const userWithoutPassword = {
@@ -47,11 +47,11 @@ usersRouter.patch(
       email: user.email,
       create_at: user.create_at,
       updated_at: user.updated_at,
-      avatar: user.avatar
-    }
+      avatar: user.avatar,
+    };
 
     return response.json(userWithoutPassword);
-  }
+  },
 );
 
 export default usersRouter;
