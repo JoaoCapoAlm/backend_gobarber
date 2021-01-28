@@ -1,45 +1,37 @@
 import { startOfHour } from 'date-fns';
-import { getCustomRepository, getRepository } from 'typeorm';
-import AppError from '@shared/errors/AppError';
-import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
-import User from '@modules/users/infra/typeorm/entities/User';
-import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
+import { inject, injectable } from 'tsyringe';
 
-interface Request {
+import AppError from '@shared/errors/AppError';
+
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
+
+interface IRequest {
   provider_id: string;
   date: Date;
 }
 
+@injectable()
 class CreateAppointmentService {
-  public async execute({ date, provider_id }: Request): Promise<Appointment> {
-    if (date === undefined || provider_id === undefined) {
-      throw new AppError('date and provider_id is required!');
-    }
-    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-    const userRepository = getRepository(User);
+  constructor(
+    @inject('AppointmentsRepository')
+    private appointmentsRepository: IAppointmentsRepository,
+  ) {}
+
+  public async execute({ date, provider_id }: IRequest): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
 
-    const checkUserExists = await userRepository.findOne({
-      where: { id: provider_id },
-    });
-
-    if (!checkUserExists) {
-      throw new AppError('User not found!');
-    }
-
-    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
     );
     if (findAppointmentInSameDate) {
       throw new AppError('This appointment is already booked');
     }
 
-    const appointment = appointmentsRepository.create({
+    const appointment = await this.appointmentsRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentsRepository.save(appointment);
 
     return appointment;
   }
