@@ -31,7 +31,7 @@ class ResetPasswordService {
       throw new AppError('User token does not exists!');
     }
 
-    const tokenCreateAt = userToken.create_at;
+    const tokenCreateAt = userToken.created_at;
 
     if (differenceInMinutes(Date.now(), tokenCreateAt) > 120) {
       throw new AppError('Token expired!');

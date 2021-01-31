@@ -16,7 +16,7 @@ export default class SessionsController {
       name: user.name,
       email: user.email,
       avatar: user.avatar,
-      create_at: user.create_at,
+      created_at: user.created_at,
       updated_at: user.updated_at,
     };
 
