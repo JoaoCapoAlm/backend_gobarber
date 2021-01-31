@@ -25,7 +25,7 @@ export default class CreateUserTokens1612051622326
             type: 'uuid',
           },
           {
-            name: 'create_at',
+            name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
@@ -38,9 +38,9 @@ export default class CreateUserTokens1612051622326
         foreignKeys: [
           {
             name: 'TokenUser',
+            columnNames: ['user_id'],
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
-            columnNames: ['user_id'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },

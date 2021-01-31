@@ -15,25 +15,23 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploadConfig.directory));
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 
-app.use(
-  (err: Error, request: Request, response: Response, _next: NextFunction) => {
-    if (err instanceof AppError) {
-      return response.status(err.statusCode).json({
-        status: 'error',
-        message: err.message,
-      });
-    }
-
-    console.error(err); // eslint-disable-line no-console
-    return response.status(500).json({
+app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  if (err instanceof AppError) {
+    return response.status(err.statusCode).json({
       status: 'error',
-      message: 'Internal server error',
+      message: err.message,
     });
-  },
-);
+  }
+
+  console.error(err); // eslint-disable-line no-console
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
+});
 
 app.listen(3333, () => {
   // eslint-disable-next-line no-console
