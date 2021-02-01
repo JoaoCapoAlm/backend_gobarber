@@ -34,9 +34,9 @@ class CreateUserService {
       throw new AppError('Name, email and password is required!');
     }
 
-    const checkUserExists = await this.userRepository.findByEmail(email);
+    const checkEmailExists = await this.userRepository.findByEmail(email);
 
-    if (checkUserExists) {
+    if (checkEmailExists) {
       throw new AppError('Email address already used!');
     }
 
