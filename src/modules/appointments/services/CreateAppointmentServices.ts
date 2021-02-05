@@ -19,7 +19,7 @@ class CreateAppointmentService {
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
 
-    @inject('AppointmentsRepository')
+    @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
   ) {}
 
@@ -28,8 +28,6 @@ class CreateAppointmentService {
     user_id,
     provider_id,
   }: IRequest): Promise<Appointment> {
-    console.log(date); // eslint-disable-line no-console
-
     const appointmentDate = startOfHour(date);
 
     if (isBefore(appointmentDate, Date.now())) {
@@ -60,6 +58,7 @@ class CreateAppointmentService {
     });
 
     const dateFormated = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm");
+
     await this.notificationsRepository.create({
       recipient_id: provider_id,
       content: `Novo agendamento para o dia ${dateFormated}`,
