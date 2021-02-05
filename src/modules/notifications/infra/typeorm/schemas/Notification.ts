@@ -1,9 +1,9 @@
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
   ObjectID,
   ObjectIdColumn,
+  Entity,
+  Column,
+  CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
