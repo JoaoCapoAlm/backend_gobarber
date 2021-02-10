@@ -1,20 +1,24 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeNotificationsRepository from '@modules/notifications/repositories/fake/FakeNotificationsRepository';
+import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 import CreateAppointmentService from './CreateAppointmentServices';
 
 let fakeNotificationsRepository: FakeNotificationsRepository;
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createAppointment: CreateAppointmentService;
 
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeNotificationsRepository = new FakeNotificationsRepository();
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
     createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
       fakeNotificationsRepository,
+      fakeCacheProvider,
     );
   });
   it('should be able to create a new appoinment', async () => {
@@ -75,9 +79,9 @@ describe('CreateAppointment', () => {
 
     await expect(
       createAppointment.execute({
-        date: new Date(2020, 4, 10, 13),
-        user_id: '123123',
-        provider_id: '123123',
+        date: new Date(2021, 4, 10, 13),
+        user_id: 'user_id',
+        provider_id: 'user_id',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

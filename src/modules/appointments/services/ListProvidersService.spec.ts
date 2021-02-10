@@ -1,14 +1,20 @@
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeUsersRepoistory from '@modules/users/repositories/fakes/FakeUsersRepository';
 import ListProviderService from './ListProvidersService';
 
+let fakeCacheProvider: FakeCacheProvider;
 let fakeUsersRepository: FakeUsersRepoistory;
 let listProvider: ListProviderService;
 
 describe('UpdateUserAvatar', () => {
   beforeEach(() => {
+    fakeCacheProvider = new FakeCacheProvider();
     fakeUsersRepository = new FakeUsersRepoistory();
 
-    listProvider = new ListProviderService(fakeUsersRepository);
+    listProvider = new ListProviderService(
+      fakeUsersRepository,
+      fakeCacheProvider,
+    );
   });
 
   it('should be able to list the providers', async () => {
