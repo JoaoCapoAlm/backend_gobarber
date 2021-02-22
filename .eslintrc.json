@@ -46,7 +46,7 @@
       {
         "argsIgnorePattern": "^_"
       }
-    ],
+    ]
   },
   "settings": {
     "import/resolver": {
