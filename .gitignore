@@ -1,6 +1,6 @@
+dist
 node_modules
-.vscode/*
-vscode/*
+.vscode
 .env
 coverage
 ormconfig.json

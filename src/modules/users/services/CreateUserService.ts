@@ -27,17 +27,6 @@ class CreateUserService {
   ) {}
 
   async execute({ name, email, password }: IRequest): Promise<User> {
-    if (
-      !name ||
-      name === undefined ||
-      !email ||
-      email === undefined ||
-      !password ||
-      password === undefined
-    ) {
-      throw new AppError('Name, email and password is required!');
-    }
-
     const checkEmailExists = await this.userRepository.findByEmail(email);
 
     if (checkEmailExists) {
